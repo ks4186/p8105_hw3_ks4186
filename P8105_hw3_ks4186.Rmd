@@ -110,9 +110,22 @@ total_activity_df |>
 Make a three-panel plot that shows the 24-hour activity time courses for each education level and use color to indicate sex.
 
 ```{r}
-
+activity_time_df =
+  final2_df |>
+  group_by (sex, education, minute) |>
+  summarize(average_activity = mean(`activity_value`, na.rm = TRUE))
 ```
-
+```{r}
+activity_time_df |>
+  ggplot(aes(x = minute, y = average_activity, color = sex)) +
+  geom_point(alpha = .2) +
+  facet_wrap(~education) +
+  labs(tittle = "24-hour Activity Time Courses for each Education Level and Sex",
+       x = "Time (min)",
+       y = "Average Activity Level",
+       color = "Sex") +
+  theme_minimal()
+```
 
 ## Problem 3
 
